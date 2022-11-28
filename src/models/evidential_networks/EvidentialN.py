@@ -89,7 +89,7 @@ class EvidentialN(nn.Module):
     def UMSE(self, alpha, soft_output, regr):
         S = alpha.sum(1, keepdim=True)
         p = alpha / S
-        UMSE = torch.sum((soft_output - p)**2 + p*(1-p) / S)
+        UMSE = torch.sum((soft_output - p)**2 + p*(1-p) / (S + 1))
 
         alpha_0 = alpha.sum(1)  # shape: [batch_size]
         flat_alpha = torch.ones_like(alpha)
